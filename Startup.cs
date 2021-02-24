@@ -57,9 +57,17 @@ namespace BookStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                app.UseEndpoints(endpoints =>
+                {
+                    //Adjust the endpoints to be more user friendly - user can type /P and the page to navigate to in the URL
+                    endpoints.MapControllerRoute(
+                        "pagination",
+                        "P{page}",
+                        new { Controller = "Home", action = "Index" });
+
+                    endpoints.MapDefaultControllerRoute();
+                });
+
             });
 
             SeedData.EnsurePopulated(app); //When app starts, it will call the EnsurePopulated function that will insert data into the database if there is none
