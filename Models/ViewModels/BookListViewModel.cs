@@ -9,6 +9,7 @@ namespace BookStore.Models.ViewModels
     {
         public IEnumerable<Book> Books { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string CurrentCategory { get; set; } //Enables passing of the selected category that's being filtered to be sent to the view
 
     }
 }
