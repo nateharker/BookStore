@@ -44,7 +44,6 @@ namespace BookStore.Controllers
                 CurrentCategory = category
             });
             /*Books are sent to the Index page to be used there*/
-            /*Books are sent to the Index page to be used there*/
         }
 
         public IActionResult Privacy()
