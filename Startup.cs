@@ -57,9 +57,27 @@ namespace BookStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                app.UseEndpoints(endpoints =>
+                {
+                    //Adjust the endpoints to be more user friendly      
+                    endpoints.MapControllerRoute(                                   //User can type /category/P(page) to navigate to a specific page of the category
+                        "catpage",
+                        "{category}/P{page:int}",
+                        new { Controller = "Home", action = "Index" });
+
+                    endpoints.MapControllerRoute(                                   //User can type /category in URL to filter by category
+                        "category",
+                        "{category}",
+                        new { Controller = "Home", action = "Index", page = 1 });
+
+                    endpoints.MapControllerRoute(                                   //user can type /P and the page to navigate to in the URL
+                        "pagination",
+                        "AllBooks/P{page:int}",
+                        new { Controller = "Home", action = "Index" });
+
+                    endpoints.MapDefaultControllerRoute();
+                });
+
             });
 
             SeedData.EnsurePopulated(app); //When app starts, it will call the EnsurePopulated function that will insert data into the database if there is none

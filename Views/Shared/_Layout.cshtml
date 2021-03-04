@@ -33,22 +33,24 @@
         </div>
         <br />
     </header>
-    <div class="text-center">
-        <div class="container">
+    <div class="row m-1 p-1">
+        <div class="col-2 text-center">
+            <vc:navigation-menu /> @*This is where the View Component partial view will be inserted*@
+        </div>
+        <div class="container col-10 text-center">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
         </div>
-
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - BookStore - Nathan Harker
-            </div>
-        </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        @RenderSection("Scripts", required: false)
     </div>
+    <footer class="border-top footer text-muted text-center">
+        <div class="container">
+            &copy; 2021 - BookStore - Nathan Harker
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
