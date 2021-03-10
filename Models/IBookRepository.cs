@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Models
 {
-    public interface IBookRepository
+    public interface IBookRepository //Set up to be inherited by the EFBookRepository
     {
         IQueryable<Book> Books { get; }
     }

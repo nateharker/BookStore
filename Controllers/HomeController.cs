@@ -24,19 +24,19 @@ namespace BookStore.Controllers
             _repository = repository; /*Repository is assigned a value here so that it can be accessed within the controller*/
         }
 
-        public IActionResult Index(string category, int page = 1)
+        public IActionResult Index(string category, int pageNum = 1)
         {
             return View(new BookListViewModel
             {
                 Books = _repository.Books //Helps determine which records to send to the view based on the page it's on
                 .Where(b => category == null || b.Category == category) //Filters by category, if arguement is passed to function
                 .OrderBy(p => p.BookId)
-                .Skip((page - 1) * PageSize)
+                .Skip((pageNum - 1) * PageSize)
                 .Take(PageSize)
                 ,
                 PagingInfo = new PagingInfo //Helps determine how many pages there should be total
                 {
-                    CurrentPage = page,
+                    CurrentPage = pageNum,
                     ItemsPerPage = PageSize,
                     TotalNumItems = category == null ? _repository.Books.Count() :      //Dynamically adjust number of page links based on filtration
                         _repository.Books.Where(x => x.Category == category).Count()

@@ -1,6 +1,7 @@
 using BookStore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,11 @@ namespace BookStore
             });
 
             services.AddScoped<IBookRepository, EFBookRepository>();
+            services.AddRazorPages();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,8 +54,10 @@ namespace BookStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -62,20 +70,21 @@ namespace BookStore
                     //Adjust the endpoints to be more user friendly      
                     endpoints.MapControllerRoute(                                   //User can type /category/P(page) to navigate to a specific page of the category
                         "catpage",
-                        "{category}/{page:int}",
+                        "{category}/{pageNum:int}",
                         new { Controller = "Home", action = "Index" });
 
                     endpoints.MapControllerRoute(                                   //user can type /P and the page to navigate to in the URL
                         "pagination",
-                        "P{page}",
+                        "P{pageNum}",
                         new { Controller = "Home", action = "Index" });
 
                     endpoints.MapControllerRoute(                                   //User can type /category in URL to filter by category
                         "category",
                         "{category}",
-                        new { Controller = "Home", action = "Index", page = 1 });
+                        new { Controller = "Home", action = "Index", pageNum = 1 });
 
                     endpoints.MapDefaultControllerRoute();
+                    endpoints.MapRazorPages();
                 });
 
             });

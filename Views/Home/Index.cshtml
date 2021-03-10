@@ -5,38 +5,20 @@
 
 @model BookListViewModel
 
-<table class="table table-striped table-bordered table-hover">
-    @*Table with bootstrap styling to display the database contents*@
-    <thead class="thead-dark">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Publisher</th>
-            <th>ISBN</th>
-            <th>Classification</th>
-            <th>Category</th>
-            <th>Page Count</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var b in Model.Books)@*Iterates through data in database and displays it in the table*@
-        {
-            <tr>
-                <td>@b.Title</td>
-                <td>@b.AuthorLName, @b.AuthorFName @b.AuthorMName</td>
-                <td>@b.Publisher</td>
-                <td>@b.ISBN</td>
-                <td>@b.Classification</td>
-                <td>@b.Category</td>
-                <td>@b.NumPages</td>
-                <td>$@b.Price</td>
-            </tr>
-        }
-    </tbody>
-</table>
-@*tag helper used to dynamically show the correct number of pages and create the buttons for them*@
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
-     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"
-     page-url-category="Model.CurrentCategory"></div>
+@*Table with bootstrap styling to display the database contents*@
+<div class="row">
+    @foreach (var b in Model.Books)@*Iterates through data in database and displays it in the table*@
+    {
 
+        <div class="col-6">
+            <partial name="BookSummary" model="b" />
+        </div>
+    }
+</div>
+
+@*tag helper used to dynamically show the correct number of pages and create the buttons for them*@
+<div class="text-center">
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
+         page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"
+         page-url-category="Model.CurrentCategory"></div>
+</div>

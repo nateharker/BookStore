@@ -1,0 +1,26 @@
+﻿@*Partial view used to display the contents for each of the books in the database*@
+
+@model Book
+<div class="card card-outline-primary m-1 p-1 bg-light mb-3">
+    <div class="p-1">
+        <h2>@Model.Title</h2>
+        <p><b>Author:</b> @Model.AuthorLName, @Model.AuthorFName @Model.AuthorMName</p>
+        <p><b>Publisher:</b> @Model.Publisher</p>
+        <p><b>ISBN:</b> @Model.ISBN</p>
+        <span class="badge badge-pill badge-primary" style="float:right">
+            <h5 class="p-1">Price: @(Model.Price.ToString("c"))</h5>
+        </span>
+        <p><b>Classification:</b> @Model.Classification</p>
+        <p><b>Category:</b> @Model.Category</p>
+        @*Form that triggers the book getting added to shopping cart and passes necessary information*@
+        <form id="@Model.BookId" asp-page="/Purchase" method="post">
+            <input type="hidden" asp-for="BookId" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn-success btn-sm pull-right mr-2" style="float:right">
+                <span style="font-size:larger">Add to Cart</span>
+            </button>
+        </form>
+        <p><b>Page Count:</b> @Model.NumPages pages</p>
+    </div>
+
+</div>

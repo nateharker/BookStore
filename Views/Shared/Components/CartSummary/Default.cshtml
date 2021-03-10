@@ -1,0 +1,18 @@
+﻿@*Html snippet that creates the cart summary in the navigation bar*@
+
+@model Cart
+
+<div class="">
+    @if (Model.Lines.Count() > 0) @*Will only appear if there are items in the cart*@
+    {
+        <small class="navbar-text">
+            <b>Your cart:</b>
+            @Model.Lines.Sum(b => b.Quantity) item(s)
+            @Model.ComputeTotalSum().ToString("c")
+        </small>
+    }
+    <a class="btn btn-sm btn-secondary navbar-btn" asp-page="/Purchase"
+       asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
+        <i class="fa fa-shopping-cart"></i>
+    </a>
+</div>

@@ -17,7 +17,7 @@ namespace BookStore.Components
         }
         public IViewComponentResult Invoke() /*Function to create list of unique categories*/
         {
-            ViewBag.SelectedType = RouteData?.Values["category"];
+            ViewBag.SelectedType = RouteData?.Values["category"]; /*This is used to determine which filter to highlight in the view*/
 
             return View(repository.Books
                 .Select(x => x.Category)

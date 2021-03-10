@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - BookStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="icon" href="~/img/book.ico" />
 </head>
 <body>
@@ -22,15 +23,22 @@
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" asp-page="/Purchase">Shopping Cart</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                 </ul>
+            </div>
+            <div class="text-right">@*View component for the cart summary code*@
+                <vc:cart-summary/>
             </div>
             @*This portion of the navbar is only displayed when the browser is smaller, or on a mobile device, you can use the button to toggle the navigation links*@
             <div class="pos-f-t">
                 <div class="collapse" id="navbarToggleExternalContent">
                     <div class="bg-dark p-2">
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-muted" asp-page="/Purchase">Shopping Cart</a>
                         <a class="nav-link text-muted" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </div>
                 </div>
@@ -51,14 +59,13 @@
                 </div>
             </div>
         </div>
-        <br />
     </header>
    
     <div class="row m-1 p-1">
         <div class="col-2 text-center">
             <vc:navigation-menu /> @*This is where the View Component partial view will be inserted*@
         </div>
-        <div class="container col-10 text-center">
+        <div class="container col-10">
             <main role="main" class="pb-3">
                 @RenderBody()        @*This is where the body will be inserted*@
             </main>

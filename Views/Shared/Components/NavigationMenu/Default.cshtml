@@ -2,17 +2,18 @@
 
 @model IEnumerable<string>
 
-<a class="btn btn-block btn-outline-secondary" asp-action="Index" asp-controller="Home"
-    asp-route-category="">
+<a class="btn btn-block @(ViewBag.SelectedType is null ? "btn-primary" : "btn-outline-secondary")" asp-action="Index" asp-controller="Home"
+   asp-route-category="">
+    @*Razor code checks to see if a category has been selected, if none has, highlight the home button*@
     Home
 </a>
 
-@foreach (string category in Model)
+@foreach (string category in Model) @*Loop displays all of the categories in the database*@
 {
     <a class="btn btn-block @(category == ViewBag.SelectedType ? "btn-primary" : "btn-outline-secondary")"
-        asp-action="Index" asp-controller="Home"
-        asp-route-category="@category"
-        asp-route-page="1">
+       asp-action="Index" asp-controller="Home"
+       asp-route-category="@category"
+       asp-route-pageNum="1">
         @category
-    </a>
+    </a>@*Razor code highlights the selected category but none of the others*@
 }

@@ -48,7 +48,7 @@ namespace BookStore.Infrastructure
             for (int i = 1; i <= PageModel.TotalPages; i++) //Loop to dynamically build the number and link for each page of the data
             {
                 TagBuilder tag = new TagBuilder("a");
-                PageUrlValues["page"] = i;
+                PageUrlValues["pageNum"] = i;
                 tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 if (PageClassesEnabled) //If Page classes enabled is set to true in an HTML element attribute, do the following
                 {
